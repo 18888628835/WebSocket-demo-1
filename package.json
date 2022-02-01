@@ -1,0 +1,13 @@
+{
+  "name": "koa-demo-1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2",
+    "koa": "^2.13.4",
+    "koa-route": "^3.2.0",
+    "koa-router": "^10.1.1",
+    "ws": "^8.4.2"
+  }
+}

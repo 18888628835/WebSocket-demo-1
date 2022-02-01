@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <button id="reset">清空</button>
+    <input />
+    <button id="send">发送</button>
+    <button id="close">关闭连接</button>
+    <div id="messages"></div>
+  </body>
+  <script>
+    const inputElement = document.querySelector('input');
+    let socket = new WebSocket('ws://localhost:4000');
+    // 创建内容
+    function addContent(content) {
+      const messageElem = document.createElement('div');
+      messageElem.innerText = content;
+      messages.prepend(messageElem);
+    }
+    // 清空输入框
+    reset.addEventListener('click', () => {
+      inputElement.value = '';
+      inputElement.focus();
+    });
+    // 发送数据
+    send.addEventListener('click', function () {
+      socket.send(JSON.stringify(inputElement.value));
+    });
+    // 关闭连接
+    document.querySelector('#close').addEventListener('click', () => {
+      addContent('已关闭连接');
+      socket.close();
+    });
+    // 开启连接
+    socket.onopen = function () {
+      addContent('已开启连接');
+    };
+    // 收到消息 —— 在 div#messages 中显示消息
+    socket.onmessage = function (event) {
+      addContent(event.data);
+    };
+  </script>
+</html>
